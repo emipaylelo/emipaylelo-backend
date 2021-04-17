@@ -7,11 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.emipaylelo.dto.BankDetailsDTO;
@@ -138,8 +140,9 @@ public class UserController {
 		return userService.setUserBankDetails(userId, bankDetailsDTO);
 	}
 	
-	@PostMapping(value="/setUserDocumentDetails")
-	public User setUserDocumentDetails(@RequestParam("userId") int userId,@RequestBody DocumentDetailsDTO documentDetailsDTO){
+	@PostMapping(value="/setUserDocumentDetails",consumes = { "multipart/form-data" })
+	public User setUserDocumentDetails(@RequestParam("userId") int userId, @ModelAttribute DocumentDetailsDTO documentDetailsDTO){
+		System.out.println(documentDetailsDTO.getAadharUrl());
 		return userService.setUserDocumentDetails(userId, documentDetailsDTO);
 	}
 	

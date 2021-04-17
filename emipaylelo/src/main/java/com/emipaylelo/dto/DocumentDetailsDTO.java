@@ -1,10 +1,12 @@
 package com.emipaylelo.dto;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class DocumentDetailsDTO {
 	String aadharNo;
 	String panNo;
-	String aadharUrl;
-	String panUrl;
+	MultipartFile aadharUrl;
+	MultipartFile panUrl;
 	public String getAadharNo() {
 		return aadharNo;
 	}
@@ -17,17 +19,18 @@ public class DocumentDetailsDTO {
 	public void setPanNo(String panNo) {
 		this.panNo = panNo;
 	}
-	public String getAadharUrl() {
+	public MultipartFile getAadharUrl() {
 		return aadharUrl;
 	}
-	public void setAadharUrl(String aadharUrl) {
+	public void setAadharUrl(MultipartFile aadharUrl) {
 		this.aadharUrl = aadharUrl;
 	}
-	public String getPanUrl() {
+	public MultipartFile getPanUrl() {
 		return panUrl;
 	}
-	public void setPanUrl(String panUrl) {
+	public void setPanUrl(MultipartFile panUrl) {
 		this.panUrl = panUrl;
 	}
+	
 	
 }
