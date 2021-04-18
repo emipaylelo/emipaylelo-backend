@@ -28,7 +28,7 @@ public class Card {
 	
 	
 	@Column(name="card_no")
-	int cardNo;
+	long cardNo;
 	
 	@Column(name="card_expiry_date")
 	LocalDate cardExpiryDate;
@@ -64,14 +64,16 @@ public class Card {
 		this.cardId = cardId;
 	}
 
-	public int getCardNo() {
+	
+	
+	public long getCardNo() {
 		return cardNo;
 	}
 
-	public void setCardNo(int cardNo) {
+	public void setCardNo(long cardNo) {
 		this.cardNo = cardNo;
 	}
-	
+
 	public CardType getCardType() {
 		return cardType;
 	}

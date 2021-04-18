@@ -60,10 +60,12 @@ public class AdminDao implements AdminInt {
 		
 		Card card = new Card();
 		card.setCardExpiryDate(LocalDate.now().plusYears(cardType.getCardExpiry()));
-		card.setCardNo(12312312);
+		long first16 = (long) (Math.random() * 10000000000000000L);
+		card.setCardNo(first16);
 		card.setCardType(cardType);
 		card.setCardRemainingLimit(cardType.getCardLimit());
-		card.setCvv(231);
+		int first3 = (int)(Math.random() * 1000L);
+		card.setCvv(first3);
 		card.setUser(user);
 		card.setIsActive(true);
 		
