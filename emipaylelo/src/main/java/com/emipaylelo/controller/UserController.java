@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.emipaylelo.dto.BankDetailsDTO;
 import com.emipaylelo.dto.BuyProductDTO;
@@ -139,10 +140,19 @@ public class UserController {
 	public User setUserBankDetails(@RequestBody BankDetailsDTO bankDetailsDTO, @RequestParam("userId") int userId){
 		return userService.setUserBankDetails(userId, bankDetailsDTO);
 	}
-	
-	@PostMapping(value="/setUserDocumentDetails",consumes = { "multipart/form-data" })
-	public User setUserDocumentDetails(@RequestParam("userId") int userId, @ModelAttribute DocumentDetailsDTO documentDetailsDTO){
+	@CrossOrigin
+	@PostMapping(value="/setUserDocumentDetails")
+	public User setUserDocumentDetails(@RequestParam("userId") int userId, @RequestParam("aadharFile") MultipartFile aadharFile,@RequestParam("panFile") MultipartFile panFile, @RequestParam("aadharNo") String aadharNo,@RequestParam("panNo") String panNo){
+		//System.out.println(userId);
+		//System.out.println(aadharFile);
+		DocumentDetailsDTO documentDetailsDTO=new DocumentDetailsDTO();
+		documentDetailsDTO.setAadharUrl(aadharFile);
+		documentDetailsDTO.setAadharNo(aadharNo);
+		documentDetailsDTO.setPanNo(panNo);
+		documentDetailsDTO.setPanUrl(panFile);
+		
 		System.out.println(documentDetailsDTO.getAadharUrl());
+		
 		return userService.setUserDocumentDetails(userId, documentDetailsDTO);
 	}
 	
