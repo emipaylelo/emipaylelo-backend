@@ -44,11 +44,18 @@ public class AdminDao implements AdminInt {
 		String jpql = "select a from Admin a where a.emailId=:aemail";
 		TypedQuery<Admin> query = em.createQuery(jpql, Admin.class);
 		query.setParameter("aemail", adminEmail);
-		Admin admin = query.getSingleResult();
+	  try {
+		  Admin admin = query.getSingleResult();
+	  
 		if(admin.getPassword().equals(adminPassword)) {
 			return true;
 		}
-		return false;
+	   return false;
+	  }
+	  catch(Exception e){
+		  return false;
+	  }
+	  
 	}
 	@Transactional
 	public void approveUser(int userId){
