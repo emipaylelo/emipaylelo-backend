@@ -1,6 +1,12 @@
 package com.emipaylelo.dao;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -14,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.emipaylelo.controller.BankDetailContoller;
 import com.emipaylelo.controller.CardController;
@@ -56,6 +63,8 @@ public class UserDao implements UserInt {
 	
 	@Autowired
 	TransactionController transactionController;
+	
+	public static String UPLOADED_FOLDER = "C:\\Lti WebDevelopment\\";
 	
 	public UserDao(){
 		
@@ -174,14 +183,26 @@ public class UserDao implements UserInt {
 		return userPersisted;
 	}
 	@Transactional
-	public User setUserDocumentDetails(int userId, DocumentDetailsDTO documentDetailsDTO) {
+	public User setUserDocumentDetails(int userId, DocumentDetailsDTO documentDetailsDTO){
 		User user = viewUserByUserId(userId);
-		user.setAadharNo(documentDetailsDTO.getAadharNo());
-		user.setAadharUrl(documentDetailsDTO.getAadharUrl());
-		user.setPanNo(documentDetailsDTO.getPanNo());
-		user.setPanUrl(documentDetailsDTO.getPanUrl());
-		User userPersisted = registerUser(user);
-		return userPersisted;
+		List<MultipartFile> documentFiles=new ArrayList<MultipartFile>();
+		try {
+			documentFiles.add(documentDetailsDTO.getAadharUrl());
+			documentFiles.add(documentDetailsDTO.getPanUrl());
+			List<Path> documentPaths=saveUploadedFiles(documentFiles);
+			user.setAadharNo(documentDetailsDTO.getAadharNo());
+			user.setAadharUrl(documentPaths.get(0).toString());
+			user.setPanNo(documentDetailsDTO.getPanNo());
+			user.setPanUrl(documentPaths.get(1).toString());
+			
+			User userPersisted = registerUser(user);
+			return userPersisted;
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+		
 	}
 	
 	@Transactional
@@ -241,5 +262,23 @@ public class UserDao implements UserInt {
 		return null;
 	}
 	
+	public List<Path> saveUploadedFiles(List<MultipartFile> files) throws IOException {
+        List<Path> paths=new ArrayList<Path>();
+        for(MultipartFile file: files) {
+        	 if (file.isEmpty()) {
+                 System.out.println("No file uploaded."); 
+                 continue;
+             }
+             byte[] bytes = file.getBytes();
+             Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
+             Files.write(path, bytes);
+             paths.add(path);
+        }
+        
+       
+
+        return paths;
+    }
+
 	
 }
