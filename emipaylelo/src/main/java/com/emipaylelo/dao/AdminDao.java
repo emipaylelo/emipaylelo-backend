@@ -39,6 +39,15 @@ public class AdminDao implements AdminInt {
 	public AdminDao(){
 		
 	}
+	
+	@Transactional
+	public void addAdmin() {
+		Admin admin = new Admin();
+		admin.setEmailId("admin@emipaylelo.com");
+		admin.setPassword("emipaylelo");
+		em.merge(admin);
+	}
+	
 	@Transactional
 	public boolean adminLogin(String adminEmail, String adminPassword){
 		String jpql = "select a from Admin a where a.emailId=:aemail";

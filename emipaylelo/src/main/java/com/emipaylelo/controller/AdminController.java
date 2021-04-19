@@ -22,6 +22,10 @@ public class AdminController {
 	@Autowired
 	AdminService adminService;
 	
+	public void addAdmin() {
+		adminService.addAdmin();
+	}
+	
 	@PostMapping(value="/adminLogin")
 	public boolean adminLogin(@RequestBody LoginDTO loginDTO) {
 		// TODO Auto-generated method stub

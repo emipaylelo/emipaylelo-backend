@@ -12,8 +12,12 @@ import com.emipaylelo.model.User;
 @Service
 public class AdminServiceImpl implements AdminService {
 	
-   @Autowired
+	@Autowired
 	AdminInt adminInt;
+   
+   	public void addAdmin() {
+   		adminInt.addAdmin();
+   	}
    
 	public boolean adminLogin(String adminEmail, String adminPassword) {
 		// TODO Auto-generated method stub

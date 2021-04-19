@@ -9,6 +9,8 @@ import com.emipaylelo.model.User;
 @Component
 public interface AdminInt {
 	
+	public void addAdmin();
+	
 	public boolean adminLogin(String adminEmail, String adminPassword);
 	
 	public void approveUser(int userId);
