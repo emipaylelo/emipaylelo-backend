@@ -38,24 +38,24 @@ public class EmipayleloApplication {
 		SpringApplication.run(EmipayleloApplication.class, args);
 	}
 	 
-	@Bean
-	InitializingBean sendDatabase() {
-	    return () -> {
-	    	adminController.addAdmin();
-			CardType goldCard = new CardType();
-			goldCard.setCardType(CardTypeEnum.GOLD);
-			goldCard.setCardExpiry(5);
-			goldCard.setCardJoiningFee(500);
-			goldCard.setCardLimit(50000);
-			
-			CardType titaniumCard = new CardType();
-			titaniumCard.setCardType(CardTypeEnum.TITANIUM);
-			titaniumCard.setCardExpiry(5);
-			titaniumCard.setCardJoiningFee(1000);
-			titaniumCard.setCardLimit(100000);
-			
-			cardTypeController.addOrUpdateCardType(goldCard);
-			cardTypeController.addOrUpdateCardType(titaniumCard);
-      };
-   }
+//	@Bean
+//	InitializingBean sendDatabase() {
+//	    return () -> {
+//	    	adminController.addAdmin();
+//			CardType goldCard = new CardType();
+//			goldCard.setCardType(CardTypeEnum.GOLD);
+//			goldCard.setCardExpiry(5);
+//			goldCard.setCardJoiningFee(500);
+//			goldCard.setCardLimit(50000);
+//			
+//			CardType titaniumCard = new CardType();
+//			titaniumCard.setCardType(CardTypeEnum.TITANIUM);
+//			titaniumCard.setCardExpiry(5);
+//			titaniumCard.setCardJoiningFee(1000);
+//			titaniumCard.setCardLimit(100000);
+//			
+//			cardTypeController.addOrUpdateCardType(goldCard);
+//			cardTypeController.addOrUpdateCardType(titaniumCard);
+//      };
+//   }
 }
