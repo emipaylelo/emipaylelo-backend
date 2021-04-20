@@ -64,8 +64,6 @@ public class UserDao implements UserInt {
 	@Autowired
 	TransactionController transactionController;
 	
-	public static String UPLOADED_FOLDER = "C:\\Users\\Harpal\\Desktop\\Finance Project\\";
-	
 	public UserDao(){
 		
 	}
@@ -189,7 +187,7 @@ public class UserDao implements UserInt {
 		try {
 			documentFiles.add(documentDetailsDTO.getAadharUrl());
 			documentFiles.add(documentDetailsDTO.getPanUrl());
-			List<Path> documentPaths=saveUploadedFiles(documentFiles);
+			List<Path> documentPaths=saveUploadedFiles(documentFiles,user.getUserId());
 			user.setAadharNo(documentDetailsDTO.getAadharNo());
 			user.setAadharUrl(documentPaths.get(0).toString());
 			user.setPanNo(documentDetailsDTO.getPanNo());
@@ -262,7 +260,9 @@ public class UserDao implements UserInt {
 		return null;
 	}
 	
-	public List<Path> saveUploadedFiles(List<MultipartFile> files) throws IOException {
+	public List<Path> saveUploadedFiles(List<MultipartFile> files,int userId) throws IOException {
+		//User user=new User();
+		 String UPLOADED_FOLDER = "C:\\Lti WebDevelopment\\FINANCE\\New folder\\emipaylelo-frontend\\src\\assets\\"+userId;
         List<Path> paths=new ArrayList<Path>();
         for(MultipartFile file: files) {
         	 if (file.isEmpty()) {
@@ -271,6 +271,8 @@ public class UserDao implements UserInt {
              }
              byte[] bytes = file.getBytes();
              Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
+             
+            
              Files.write(path, bytes);
              paths.add(path);
         }
