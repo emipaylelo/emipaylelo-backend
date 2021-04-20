@@ -44,7 +44,7 @@ public class AdminDao implements AdminInt {
 	public void addAdmin() {
 		Admin admin = new Admin();
 		admin.setEmailId("admin@emipaylelo.com");
-		admin.setPassword("emipaylelo");
+		admin.setPassword("Emipaylelo04@");
 		em.merge(admin);
 	}
 	
