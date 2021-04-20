@@ -24,6 +24,9 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	UserInt userInt;
 	
+	@Autowired
+	EmailServiceImpl emailServiceImpl;
+	
 	public User registerUser(User user) {
 		// TODO Auto-generated method stub
 		return userInt.registerUser(user);
@@ -109,12 +112,16 @@ public class UserServiceImpl implements UserService {
 	}
 
 	public User setUserDocumentDetails(int userId, DocumentDetailsDTO documentDetailsDTO) {
-		// TODO Auto-generated method stub
-		return userInt.setUserDocumentDetails(userId, documentDetailsDTO);
+		User userpersisted=userInt.setUserDocumentDetails(userId, documentDetailsDTO);
+		String mssg="Hi "+userpersisted.getUserName()+" You have successfully registered on emiPAYlelo!. You will soon receive your credentials after Admin's approval.";
+		emailServiceImpl.sendEmail(userpersisted, "Registration Completed!", mssg);
+		return userpersisted;
 	}
 	
 	public User setUserCardType(int userId, int cardTypeId){
-		return userInt.setUserCardType(userId, cardTypeId);
+		User userpersisted=userInt.setUserCardType(userId, cardTypeId);
+		
+		return userpersisted;
 	}
 	
 	public Order buyProduct(int userId, int productId, int tenure){
